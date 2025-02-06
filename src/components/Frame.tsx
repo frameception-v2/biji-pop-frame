@@ -3,6 +3,7 @@
 import { useEffect, useCallback, useState } from "react";
 import sdk, { AddFrame, type Context } from "@farcaster/frame-sdk";
 import { PROJECT_TITLE, INITIAL_IMAGE_URL, DREAMING_IMAGE_URL, CONFETTI_GIF_URL, POPART_API_URL } from "~/lib/constants";
+import Image from "next/image";
 
 type FrameState = 'initial' | 'processing' | 'result';
 
@@ -87,10 +88,13 @@ export default function Frame() {
 
         {frameState === 'initial' && (
           <div className="relative">
-            <img 
+            <Image 
               src={INITIAL_IMAGE_URL}
               alt="POP ART FRAME"
+              width={1200}
+              height={630}
               className="w-full h-auto border-4 border-black"
+              priority
             />
             <button
               onClick={handleMakePop}
@@ -108,23 +112,30 @@ export default function Frame() {
 
         {frameState === 'processing' && (
           <div className="animate-pulse">
-            <img
+            <Image
               src={DREAMING_IMAGE_URL}
               alt="Dreaming of pop art"
+              width={800}
+              height={450}
               className="w-full h-auto"
+              priority
             />
-            <p className="text-center mt-4 text-lg font-comic">"when I grow up all I want is to make it pop"</p>
+            <p className="text-center mt-4 text-lg font-comic">&quot;when I grow up all I want is to make it pop&quot;</p>
           </div>
         )}
 
         {frameState === 'result' && popArtResult && (
           <div className="relative">
-            <img
+            <Image
               src={popArtResult}
               alt="Your pop art transformation"
+              width={1200}
+              height={630}
               className="w-full h-auto border-4 border-black"
+              priority
             />
             {typeof window !== 'undefined' && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={CONFETTI_GIF_URL}
                 alt="Confetti explosion"
